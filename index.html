@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ambitions</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0b0d12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="color-scheme" content="dark light">
+<style>
+:root{
+  --bg:#0b0d12;--bg2:#12151c;--card:rgba(255,255,255,.055);--card2:rgba(255,255,255,.09);--line:rgba(255,255,255,.09);
+  --ink:#f4f6fa;--ink2:#a7afbd;--ink3:#6c7586;--acc:#34d3c1;--acc2:#7c9cff;--ok:#4ade80;--ko:#fb7185;--warn:#fbbf24;
+  --glow:rgba(52,211,193,.18);--shadow:0 10px 30px rgba(0,0,0,.35)
+}
+@media (prefers-color-scheme:light){:root{
+  --bg:#f4f6fa;--bg2:#fff;--card:rgba(255,255,255,.9);--card2:rgba(20,30,50,.06);--line:rgba(20,30,50,.1);
+  --ink:#12151c;--ink2:#4b5565;--ink3:#8591a3;--acc:#0ea5a0;--acc2:#4f6df5;--ok:#16a34a;--ko:#e11d48;--warn:#d97706;
+  --glow:rgba(14,165,160,.14);--shadow:0 10px 30px rgba(20,30,50,.12)}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{margin:0;color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+  background:radial-gradient(900px 420px at 50% -120px,var(--glow),transparent 70%),var(--bg);min-height:100vh;
+  padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+header{display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top)) 20px 4px;max-width:520px;margin:0 auto}
+header h1{margin:0;font-size:22px;letter-spacing:-.02em}
+header .date{color:var(--ink3);font-size:13px;text-transform:capitalize}
+.icon{width:40px;height:40px;border-radius:12px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink2);font-size:18px}
+main{max-width:520px;margin:0 auto;padding:12px 16px;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--shadow);animation:rise .35s ease both}
+.card h2{margin:0 0 12px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.card h2 span{letter-spacing:0;text-transform:none;font-weight:500;color:var(--ink2);font-size:13px}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* héros */
+.hero{display:flex;align-items:center;gap:18px}
+.ring{position:relative;width:128px;height:128px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring .n{position:absolute;inset:0;display:grid;place-items:center;text-align:center;line-height:1}
+.ring .n b{font-size:42px;letter-spacing:-.03em}
+.ring .n small{display:block;color:var(--ink3);font-size:11px;margin-top:4px}
+.hero .t{flex:1;min-width:0}
+.hero .t b{display:block;font-size:17px;letter-spacing:-.01em}
+.hero .t p{margin:4px 0 0;color:var(--ink2);font-size:13px}
+.pill{display:inline-block;margin-top:10px;padding:4px 10px;border-radius:999px;background:var(--card2);color:var(--ink2);font-size:12px}
+.pill.ok{background:rgba(74,222,128,.15);color:var(--ok)}
+
+/* semaine */
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0;border-radius:14px}
+.day:hover{background:var(--card2)}
+.day small{color:var(--ink3);font-size:11px;font-weight:600}
+.day i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:13px;font-weight:700;background:var(--card2);color:var(--ink3)}
+.day.ok i{background:var(--ok);color:#06210f}
+.day.fail i{background:var(--ko);color:#2a0710}
+.day.part i{background:transparent;border:2px solid var(--warn);color:var(--warn)}
+.day.today small{color:var(--acc)}
+.day.today i{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--acc)}
+.day.off{opacity:.35}
+
+/* règles */
+.rule{padding:14px 0;border-top:1px solid var(--line)}
+.rule:first-of-type{border-top:0;padding-top:0}
+.rule .top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
+.rule .name{font-weight:600;text-align:left;font-size:15px}
+.rule .st{font-size:12px;color:var(--ink3);white-space:nowrap}
+.rule .st.ok{color:var(--ok)}.rule .st.ko{color:var(--ko)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.big{min-height:52px;border-radius:16px;background:var(--card2);color:var(--ink2);font-weight:600;font-size:15px;transition:transform .12s,background .2s}
+.big:active{transform:scale(.97)}
+.big.ok.on{background:var(--ok);color:#06210f}
+.big.ko.on{background:var(--ko);color:#2a0710}
+.gauge{height:10px;border-radius:99px;background:var(--card2);overflow:hidden;margin-bottom:10px}
+.gauge i{display:block;height:100%;border-radius:99px;background:var(--ok);transition:width .35s,background .3s}
+.gauge i.warn{background:var(--warn)}.gauge i.bad{background:var(--ko)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{min-height:40px;padding:0 14px;border-radius:12px;background:var(--card2);color:var(--ink);font-weight:600;font-size:14px}
+.chip:active{transform:scale(.96)}
+.chip.ghost{color:var(--ink3);font-weight:500}
+
+/* objectifs */
+.bar{height:6px;border-radius:99px;background:var(--card2);overflow:hidden;margin:-4px 0 12px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:99px;transition:width .35s}
+.goal{display:flex;align-items:center;gap:12px;min-height:48px;border-top:1px solid var(--line)}
+.goal:first-of-type{border-top:0}
+.box{width:26px;height:26px;border-radius:9px;border:2px solid var(--ink3);flex:none;display:grid;place-items:center;font-size:15px;color:transparent;transition:.15s}
+.box.on{background:var(--ok);border-color:var(--ok);color:#06210f}
+.goal .g{flex:1;min-width:0}
+.goal .g.done{color:var(--ink3);text-decoration:line-through}
+.x{color:var(--ink3);width:36px;height:36px;border-radius:10px}.x:hover{color:var(--ko);background:var(--card2)}
+.inline{display:flex;gap:8px;margin-top:12px}
+input{flex:1;min-width:0;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--ink);padding:0 12px;font:inherit}
+input::placeholder{color:var(--ink3)}
+.add{height:44px;padding:0 16px;border-radius:12px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#05121a;font-weight:700}
+.link{color:var(--acc);font-weight:600;font-size:14px;padding:6px 0}
+
+/* historique */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal b{font-size:10px;color:var(--ink3);text-align:center;font-weight:600}
+.cal i{aspect-ratio:1;border-radius:7px;background:var(--card2);display:grid;place-items:center;font-style:normal;font-size:10px;color:var(--ink3)}
+.cal i.ok{background:var(--ok);color:#06210f}.cal i.fail{background:var(--ko);color:#2a0710}.cal i.today{box-shadow:0 0 0 2px var(--acc)}.cal i.void{background:transparent}
+
+/* feuille + toast */
+#scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+#scrim.on{opacity:1;pointer-events:auto}
+#sheet{position:fixed;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;background:var(--bg2);border:1px solid var(--line);border-bottom:0;border-radius:26px 26px 0 0;
+  padding:10px 18px calc(22px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .28s cubic-bezier(.2,.9,.3,1);z-index:21;max-height:88vh;overflow:auto}
+#sheet.on{transform:none}
+#sheet .grab{width:42px;height:5px;border-radius:9px;background:var(--line);margin:0 auto 14px}
+#sheet h3{margin:0 0 14px;font-size:18px;letter-spacing:-.01em}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px;border-radius:14px;background:var(--card2);margin-bottom:12px}
+.seg button{height:40px;border-radius:11px;color:var(--ink2);font-weight:600}
+.seg button.on{background:var(--bg2);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.field label{font-size:12px;color:var(--ink3);font-weight:600}
+.row2{display:flex;gap:8px;margin-top:6px}
+.danger{color:var(--ko)}
+.menu button{width:100%;text-align:left;padding:14px 4px;border-top:1px solid var(--line);font-weight:500}
+.menu button:first-of-type{border-top:0}
+#toast{position:fixed;left:50%;width:max-content;max-width:calc(100vw - 32px);bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,30px);opacity:0;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:14px;display:flex;gap:14px;align-items:center;font-weight:500;font-size:14px;transition:.25s;z-index:30;pointer-events:none;box-shadow:var(--shadow)}
+#toast.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+#toast button{color:var(--acc2);font-weight:700}
+.conf{position:fixed;top:30%;width:9px;height:14px;border-radius:2px;z-index:40;pointer-events:none;animation:fall 1.5s ease-out forwards}
+@keyframes fall{to{transform:translate(var(--dx),70vh) rotate(var(--r));opacity:0}}
+.empty{color:var(--ink3);font-size:14px;padding:6px 0 2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div><h1>Ambitions</h1><div class="date" id="today"></div></div><button class="icon" data-act="menu" aria-label="Menu">⋯</button></header>
+<main id="app"></main>
+<div id="scrim" data-act="close"></div><div id="sheet" role="dialog" aria-modal="true"></div><div id="toast"></div>
+<input id="file" type="file" accept="application/json" hidden>
+<script>
+const KEY = 'ambitions-v1'
+const $ = s => document.querySelector(s)
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()))
+const pad = n => String(n).padStart(2, '0')
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+const todayStr = () => ymd(new Date())
+const parse = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d) }
+const addDays = (s, n) => { const d = parse(s); d.setDate(d.getDate() + n); return ymd(d) }
+const lastDays = (t, n) => Array.from({ length: n }, (_, i) => addDays(t, i - (n - 1)))
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+const LETTER = ['D', 'L', 'M', 'M', 'J', 'V', 'S']
+const MILESTONES = [3, 7, 14, 21, 30, 60, 100, 200, 365]
+
+// ---------- données ----------
+function seed() {
+  const t = todayStr()
+  return { rules: [
+    { id: uid(), label: 'Réseaux sociaux : 15 min max', limit: 15, start: t },
+  ], logs: {}, goals: [] }
+}
+let db
+try { db = JSON.parse(localStorage.getItem(KEY)) } catch {}
+if (!db || !Array.isArray(db.rules)) db = seed()
+const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(db)) } catch {} }
+const ui = { sheet: null, cal: false }
+
+// ---------- séries ----------
+const log = (r, d) => db.logs[r.id + '|' + d]
+function dayState(date) {
+  const active = db.rules.filter(r => r.start <= date)
+  if (!active.length) return 'none'
+  let missing = 0, ok = 0
+  for (const r of active) { const l = log(r, date); if (!l) missing++; else if (!l.ok) return 'fail'; else ok++ }
+  return missing ? (ok ? 'part' : 'none') : 'ok'
+}
+function currentStreak(today) {
+  if (!db.rules.length) return 0
+  const first = db.rules.map(r => r.start).sort()[0]
+  let d = today
+  const t = dayState(d)
+  if (t === 'fail') return 0
+  if (t !== 'ok') d = addDays(d, -1)
+  let n = 0
+  while (d >= first && dayState(d) === 'ok') { n++; d = addDays(d, -1) }
+  return n
+}
+function bestStreak(today) {
+  if (!db.rules.length) return 0
+  let d = db.rules.map(r => r.start).sort()[0], best = 0, run = 0
+  while (d <= today) {
+    const s = dayState(d)
+    if (s === 'ok') { run++; best = Math.max(best, run) } else if (!((s === 'none' || s === 'part') && d === today)) run = 0
+    d = addDays(d, 1)
+  }
+  return best
+}
+
+// ---------- actions ----------
+let toastTimer
+function toast(msg, undo) {
+  const t = $('#toast')
+  t.innerHTML = `<span>${esc(msg)}</span>${undo ? '<button data-act="undo">Annuler</button>' : ''}`
+  t.classList.add('on'); toast.undo = undo
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 4500)
+}
+function mutate(fn, msg) {
+  const before = JSON.stringify(db), today = todayStr(), was = dayState(today)
+  fn(); persist()
+  if (dayState(today) === 'ok' && was !== 'ok') celebrate()
+  if (msg) toast(msg, () => { db = JSON.parse(before); persist(); render() })
+  render()
+}
+function setLog(r, d, v) {
+  const ok = r.limit !== null ? (v.minutes >= 0 && v.minutes <= r.limit) : v.ok === true
+  db.logs[r.id + '|' + d] = { ok, minutes: r.limit !== null ? v.minutes : null }
+}
+function celebrate() {
+  navigator.vibrate && navigator.vibrate(40)
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) return
+  const colors = ['#34d3c1', '#7c9cff', '#4ade80', '#fbbf24', '#fb7185']
+  for (let i = 0; i < 26; i++) {
+    const c = document.createElement('div'); c.className = 'conf'
+    c.style.cssText = `left:${40 + Math.random() * 20}%;background:${colors[i % 5]};--dx:${(Math.random() - .5) * 340}px;--r:${Math.random() * 720}deg;animation-delay:${Math.random() * .15}s`
+    document.body.appendChild(c); setTimeout(() => c.remove(), 1800)
+  }
+}
+
+// ---------- rendu ----------
+function controls(r, d) {
+  const l = log(r, d)
+  if (r.limit === null) {
+    return `<div class="duo"><button class="big ok ${l && l.ok ? 'on' : ''}" data-act="yes" data-id="${r.id}" data-date="${d}">✓ Tenu</button>
+      <button class="big ko ${l && !l.ok ? 'on' : ''}" data-act="no" data-id="${r.id}" data-date="${d}">✕ Craqué</button></div>`
+  }
+  const m = l ? l.minutes || 0 : 0, pct = Math.min(100, Math.round(m / Math.max(1, r.limit) * 100))
+  const cls = m > r.limit ? 'bad' : pct >= 70 ? 'warn' : ''
+  return `<div class="gauge"><i class="${cls}" style="width:${l ? Math.max(pct, 4) : 0}%"></i></div>
+    <div class="chips">${l ? `<button class="chip ghost" data-act="min" data-v="-5" data-id="${r.id}" data-date="${d}">−5</button>` : ''}
+      <button class="chip" data-act="min" data-v="5" data-id="${r.id}" data-date="${d}">+5</button>
+      <button class="chip" data-act="min" data-v="10" data-id="${r.id}" data-date="${d}">+10</button>
+      <button class="chip" data-act="min" data-v="15" data-id="${r.id}" data-date="${d}">+15</button>
+      ${l ? '' : `<button class="chip" data-act="zero" data-id="${r.id}" data-date="${d}">0 min</button>`}</div>`
+}
+function ruleStatus(r, d) {
+  const l = log(r, d)
+  if (!l) return ['pas renseigné', '']
+  if (r.limit !== null) return [`${l.minutes || 0} / ${r.limit} min`, l.ok ? 'ok' : 'ko']
+  return [l.ok ? 'tenu' : 'craqué', l.ok ? 'ok' : 'ko']
+}
+function ruleBlock(r, d) {
+  const [txt, cls] = ruleStatus(r, d)
+  return `<div class="rule"><div class="top"><button class="name" data-act="rule" data-id="${r.id}">${esc(r.label)}</button><span class="st ${cls}">${txt}</span></div>${controls(r, d)}</div>`
+}
+
+function render() {
+  const today = todayStr(), streak = currentStreak(today), best = bestStreak(today)
+  const next = MILESTONES.find(m => m > streak) || streak + 1
+  const prev = [...MILESTONES].reverse().find(m => m <= streak) || 0
+  const prog = Math.min(1, (streak - prev) / (next - prev)), C = 2 * Math.PI * 54
+  const active = db.rules.filter(r => r.start <= today), doneToday = active.filter(r => log(r, today) && log(r, today).ok).length
+  const state = dayState(today)
+  $('#today').textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
+
+  const msg = !db.rules.length ? ['Commence par ajouter une règle', 'Une seule règle suffit pour démarrer.']
+    : state === 'ok' ? ['Journée tenue ✓', 'Toutes les règles sont respectées. À demain !']
+    : state === 'fail' ? ['Pas aujourd’hui', 'Ce n’est pas grave : la série repart demain.']
+    : streak === 0 && !doneToday ? ['Premier jour', 'Renseigne tes règles pour lancer le compteur.']
+    : [`Encore ${active.length - doneToday} à renseigner`, `Prochain palier : ${next} jours.`]
+  const week = lastDays(today, 7)
+  const monthDays = new Date(parse(today).getFullYear(), parse(today).getMonth() + 1, 0).getDate()
+  const first = new Date(parse(today).getFullYear(), parse(today).getMonth(), 1), lead = (first.getDay() + 6) % 7
+  const goals = db.goals.filter(g => g.month === today.slice(0, 7)), gdone = goals.filter(g => g.done).length
+
+  $('#app').innerHTML = `
+  <section class="card hero">
+    <div class="ring"><svg width="128" height="128" viewBox="0 0 128 128"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d3c1"/><stop offset="1" stop-color="#7c9cff"/></linearGradient></defs>
+      <circle cx="64" cy="64" r="54" fill="none" stroke="var(--card2)" stroke-width="10"/>
+      <circle cx="64" cy="64" r="54" fill="none" stroke="url(#g)" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - prog)}" style="transition:stroke-dashoffset .6s"/></svg>
+      <div class="n"><div><b>${streak}</b><small>jour${streak > 1 ? 's' : ''}</small></div></div></div>
+    <div class="t"><b>${msg[0]}</b><p>${msg[1]}</p><span class="pill ${state === 'ok' ? 'ok' : ''}">${active.length ? `${doneToday}/${active.length} aujourd’hui` : 'aucune règle'} · record ${best} j</span></div>
+  </section>
+
+  <section class="card"><h2>Cette semaine <span>touche un jour pour le corriger</span></h2>
+    <div class="week">${week.map(d => {
+      const s = dayState(d), off = !db.rules.some(r => r.start <= d)
+      return `<button class="day ${off ? 'off' : s} ${d === today ? 'today' : ''}" data-act="day" data-date="${d}" ${off ? 'disabled' : ''}><small>${LETTER[parse(d).getDay()]}</small><i>${s === 'ok' ? '✓' : s === 'fail' ? '✕' : parse(d).getDate()}</i></button>`
+    }).join('')}</div>
+  </section>
+
+  <section class="card"><h2>Aujourd’hui <span>${doneToday}/${active.length}</span></h2>
+    ${active.length ? active.map(r => ruleBlock(r, today)).join('') : '<p class="empty">Aucune règle pour l’instant.</p>'}
+    <div class="inline" style="justify-content:flex-start"><button class="link" data-act="newrule">+ Nouvelle règle</button></div>
+  </section>
+
+  <section class="card"><h2>Objectifs du mois <span>${gdone}/${goals.length}</span></h2>
+    ${goals.length ? `<div class="bar"><i style="width:${Math.round(gdone / goals.length * 100)}%"></i></div>` : ''}
+    ${goals.length ? goals.map(g => `<div class="goal"><button class="box ${g.done ? 'on' : ''}" data-act="goal" data-id="${g.id}" aria-label="Cocher">✓</button><span class="g ${g.done ? 'done' : ''}">${esc(g.label)}</span><button class="x" data-act="delgoal" data-id="${g.id}" aria-label="Supprimer">✕</button></div>`).join('') : '<p class="empty">Ce que tu veux corriger ou atteindre ce mois-ci.</p>'}
+    <form class="inline" id="f-goal"><input name="label" placeholder="Ajouter un objectif" autocomplete="off"><button class="add">Ajouter</button></form>
+  </section>
+
+  <section class="card"><h2>Ce mois-ci <button class="link" data-act="cal">${ui.cal ? 'Masquer' : 'Afficher'}</button></h2>
+    ${ui.cal ? `<div class="cal">${['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(l => `<b>${l}</b>`).join('')}${Array.from({ length: lead }, () => '<i class="void"></i>').join('')}${Array.from({ length: monthDays }, (_, i) => {
+      const d = `${today.slice(0, 7)}-${pad(i + 1)}`, s = d > today ? 'none' : dayState(d)
+      return `<i class="${s === 'ok' ? 'ok' : s === 'fail' ? 'fail' : ''} ${d === today ? 'today' : ''}">${i + 1}</i>`
+    }).join('')}</div>` : '<p class="empty" style="margin:0">Vue du mois : vert = journée tenue, rouge = raté.</p>'}
+  </section>`
+  renderSheet()
+}
+
+// ---------- feuille ----------
+const PRESETS = ['Pas de sucre', 'Pas d’alcool', 'Couché avant 23 h', 'Écrans coupés à 22 h']
+function openSheet(s) { ui.sheet = s; renderSheet() }
+function closeSheet() { ui.sheet = null; renderSheet() }
+function renderSheet() {
+  const s = ui.sheet, sh = $('#sheet')
+  $('#scrim').classList.toggle('on', !!s); sh.classList.toggle('on', !!s)
+  if (!s) return
+  let h = '<div class="grab"></div>'
+  if (s.type === 'day') {
+    const rs = db.rules.filter(r => r.start <= s.date)
+    h += `<h3>${parse(s.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}</h3>${rs.map(r => ruleBlock(r, s.date)).join('')}`
+  } else if (s.type === 'new') {
+    h += `<h3>Nouvelle règle</h3><form id="f-rule">
+      <div class="seg"><button type="button" class="${s.kind === 'zero' ? 'on' : ''}" data-act="kind" data-v="zero">Zéro (tenu / craqué)</button><button type="button" class="${s.kind === 'cap' ? 'on' : ''}" data-act="kind" data-v="cap">Plafond en minutes</button></div>
+      <div class="field"><label>Intitulé</label><input name="label" value="${esc(s.label || '')}" placeholder="Ex. Pas de sucre" autocomplete="off" required></div>
+      ${s.kind === 'cap' ? '<div class="field"><label>Minutes maximum par jour</label><input name="limit" type="number" min="0" value="15" inputmode="numeric"></div>' : ''}
+      <div class="chips" style="margin-bottom:14px">${PRESETS.map(p => `<button type="button" class="chip ghost" data-act="preset" data-v="${esc(p)}">${esc(p)}</button>`).join('')}</div>
+      <button class="add" style="width:100%">Ajouter la règle</button></form>`
+  } else if (s.type === 'rule') {
+    const r = db.rules.find(x => x.id === s.id)
+    h += `<h3>Modifier la règle</h3><form id="f-edit" data-id="${r.id}">
+      <div class="field"><label>Intitulé</label><input name="label" value="${esc(r.label)}" required></div>
+      ${r.limit !== null ? `<div class="field"><label>Minutes maximum par jour</label><input name="limit" type="number" min="0" value="${r.limit}" inputmode="numeric"></div>` : ''}
+      <div class="row2"><button class="add" style="flex:1">Enregistrer</button><button type="button" class="chip danger" data-act="delrule" data-id="${r.id}">Supprimer</button></div></form>`
+  } else if (s.type === 'menu') {
+    h += `<h3>Menu</h3><div class="menu"><button data-act="export">Exporter mes données</button><button data-act="import">Importer un fichier</button><button class="danger" data-act="reset">Tout réinitialiser</button></div>
+      <p class="empty">Les données restent sur cet appareil.</p>`
+  }
+  sh.innerHTML = h
+}
+
+// ---------- événements ----------
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-act]'); if (!t) return
+  const { act, id, date, v } = t.dataset, r = id && db.rules.find(x => x.id === id)
+  const cur = r && log(r, date)
+  switch (act) {
+    case 'yes': mutate(() => { cur && cur.ok ? delete db.logs[r.id + '|' + date] : setLog(r, date, { ok: true }) }); break
+    case 'no': mutate(() => { cur && !cur.ok ? delete db.logs[r.id + '|' + date] : setLog(r, date, { ok: false }) }); break
+    case 'min': mutate(() => { const m = Math.max(0, ((cur && cur.minutes) || 0) + Number(v)); m === 0 && Number(v) < 0 ? delete db.logs[r.id + '|' + date] : setLog(r, date, { minutes: m }) }); break
+    case 'zero': mutate(() => setLog(r, date, { minutes: 0 })); break
+    case 'day': openSheet({ type: 'day', date }); break
+    case 'newrule': openSheet({ type: 'new', kind: 'zero' }); break
+    case 'kind': ui.sheet.kind = v; ui.sheet.label = ($('#f-rule input[name=label]') || {}).value; renderSheet(); break
+    case 'preset': { const i = $('#f-rule input[name=label]'); i.value = v; i.focus(); break }
+    case 'rule': openSheet({ type: 'rule', id }); break
+    case 'delrule': closeSheet(); mutate(() => { db.rules = db.rules.filter(x => x.id !== id); for (const k of Object.keys(db.logs)) if (k.startsWith(id + '|')) delete db.logs[k] }, 'Règle supprimée'); break
+    case 'goal': mutate(() => { const g = db.goals.find(x => x.id === id); g.done = !g.done }); break
+    case 'delgoal': mutate(() => { db.goals = db.goals.filter(x => x.id !== id) }, 'Objectif supprimé'); break
+    case 'cal': ui.cal = !ui.cal; render(); break
+    case 'menu': openSheet({ type: 'menu' }); break
+    case 'close': closeSheet(); break
+    case 'undo': toast.undo && toast.undo(); $('#toast').classList.remove('on'); break
+    case 'export': { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' })); a.download = `ambitions-${todayStr()}.json`; a.click(); break }
+    case 'import': $('#file').click(); break
+    case 'reset': if (confirm('Effacer toutes les données de cette appli ?')) { db = seed(); persist(); closeSheet(); render() } break
+  }
+})
+document.addEventListener('submit', e => {
+  e.preventDefault()
+  const f = new FormData(e.target), label = String(f.get('label') || '').trim()
+  if (!label) return
+  if (e.target.id === 'f-goal') { mutate(() => db.goals.push({ id: uid(), label, month: todayStr().slice(0, 7), done: false })); e.target.reset() }
+  else if (e.target.id === 'f-rule') {
+    const cap = ui.sheet.kind === 'cap', lim = Math.max(0, Math.round(Number(f.get('limit') || 15)))
+    closeSheet(); mutate(() => db.rules.push({ id: uid(), label, limit: cap ? lim : null, start: todayStr() }))
+  } else if (e.target.id === 'f-edit') {
+    const r = db.rules.find(x => x.id === e.target.dataset.id), lim = f.get('limit')
+    closeSheet(); mutate(() => { r.label = label; if (r.limit !== null && lim !== null) r.limit = Math.max(0, Math.round(Number(lim))) })
+  }
+})
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet() })
+$('#file').onchange = async e => {
+  try {
+    const d = JSON.parse(await e.target.files[0].text())
+    if (!Array.isArray(d.rules) || typeof d.logs !== 'object') throw 0
+    if (confirm('Remplacer les données actuelles par ce fichier ?')) { db = d; db.goals = db.goals || []; persist(); closeSheet(); render() }
+  } catch { alert('Fichier invalide') }
+  e.target.value = ''
+}
+render()
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {})
+</script>
+</body>
+</html>

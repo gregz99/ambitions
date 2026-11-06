@@ -1,0 +1,12 @@
+{
+  "name": "Ambitions",
+  "short_name": "Ambitions",
+  "description": "Objectifs du mois et compteur de jours",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
